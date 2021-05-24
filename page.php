@@ -37,7 +37,7 @@ class page
     }
 
     private function show_content(){
-
+        $this->the_page->show_content();
     }
 
     private function show_footer(){
@@ -53,7 +53,9 @@ class page
     public function create(){
         $this->start_page();
         $this->show_title();
-
+        $this->show_menu();
+        $this->show_content();
+        $this->show_footer();
         $this->finish_page();
     }
 }
