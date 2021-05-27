@@ -46,3 +46,15 @@
     border: 1px solid black;
     background-color: ivory;
 }
+
+.err_msg{
+    width: 100%;
+    margin: 0;
+    padding: 16px 0;
+    text-align: center;
+    font-family: Cambria serif;
+    font-weight: bold;
+    color: red;
+    border: 1px solid black;
+    background-color: yellow;
+}

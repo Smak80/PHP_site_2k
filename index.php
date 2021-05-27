@@ -20,8 +20,6 @@ class index extends a_content {
         if (isset($data)) {
             print("Пользователь отправил: $data");
         }
-
-        $res = json_parser::get_full_info("menu.json");
     }
 }
 

@@ -6,7 +6,7 @@ abstract class a_content
 {
     protected $title;
     private $menu_file = "menu.json";
-    private $request = array();
+    protected $request = array();
 
     public function __construct(){
         $this->get_user_data();
