@@ -1,9 +1,9 @@
 <?php
 include_once "a_content.php";
-include_once "page.php";
+include_once "a_page.php";
+include_once "json_parser.php";
 
 class index extends a_content {
-    protected $title = "Главная страница";
 
     public function show_content()
     {
@@ -20,9 +20,11 @@ class index extends a_content {
         if (isset($data)) {
             print("Пользователь отправил: $data");
         }
+
+        $res = json_parser::get_full_info("menu.json");
     }
 }
 
-$p = new page(new index());
+$p = new a_page(new index());
 $p->create();
 ?>

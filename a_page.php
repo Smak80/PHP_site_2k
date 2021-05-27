@@ -1,7 +1,8 @@
 <?php
 include_once "a_content.php";
 
-class page
+
+class a_page
 {
     private $the_page;
 
@@ -33,7 +34,23 @@ class page
     }
 
     private function show_menu(){
-
+        ?>
+        <div class="menu">
+            <?php
+            $m = json_parser::get_full_info("menu.json");
+            foreach ($m as $page_info){
+                if (
+                    "/".$page_info['addr'] === $_SERVER['PHP_SELF'] ||
+                    ($page_info['addr'] === 'index.php' && $_SERVER['PHP_SELF'] === '/')
+                ){
+                    print ("<div class='current_menu_item'>{$page_info['name']}</div>");
+                } else {
+                    print ("<div class='menu_item'><a href='{$page_info['addr']}'>{$page_info['name']}</a></div>");
+                }
+            }
+            ?>
+        </div>
+        <?php
     }
 
     private function show_content(){

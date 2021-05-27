@@ -1,9 +1,11 @@
 <?php
 
+include_once "json_parser.php";
 
 abstract class a_content
 {
     protected $title;
+    private $menu_file = "menu.json";
     private $request = array();
 
     public function __construct(){
@@ -24,7 +26,16 @@ abstract class a_content
     }
 
     public function get_title(){
-        return $this->title;
+        $m = json_parser::get_full_info($this->menu_file);
+        foreach ($m as $page_info){
+            if (
+                "/".$page_info['addr'] === $_SERVER['PHP_SELF'] ||
+                ($page_info['addr'] === 'index.php' && $_SERVER['PHP_SELF'] === '/')
+            ){
+                return $page_info['title'];
+            }
+        }
+        return null;
     }
 
     public abstract function show_content();
