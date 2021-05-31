@@ -23,12 +23,12 @@ class registrator{
     }
 
     public function save_data(){
-        $filename = "users.dat";
+        $filename = "users2.dat";
         if (!file_exists($filename) || is_writable($filename)) {
+            //$psw = $this->user_data['password'];
             $psw = password_hash($this->user_data['password'], PASSWORD_DEFAULT);
             $f = fopen($filename, "a");
             if ($f != null) {
-
                 fwrite($f, $this->user_data['login'] . " ");
                 fwrite($f, $psw."\r\n");
                 fclose($f);
@@ -42,15 +42,16 @@ class registrator{
             && $this->user_data['password'] === $this->user_data['password2'];
     }
 
-    public function authenticate($psw): bool{
+    public function authenticate($login, $psw): bool{
         $filename = "users.dat";
         $res = false;
         if (is_readable($filename)) {
             $f = fopen($filename, "r");
             while ($s = fgets($f)){
                 $sa = mb_split("\\s", $s);
-                if (strcmp($sa[0], "smaklets")===0){
+                if (strcmp($sa[0], $login)===0){
                     $res = password_verify($psw, $sa[1]);
+                    break;
                 }
             }
             fclose($f);
@@ -77,7 +78,7 @@ class second extends a_content
                 print ("<div class='err_msg'>Проверьте ввод паролей.</div>");
             } else {
                 $this->reg->save_data();
-                if ($this->reg->authenticate("111111")){
+                if ($this->reg->authenticate("smaklets", "111111")){
                     print("<br>PSW OK!<br>");
                     $_SESSION["logged_in"] = "true";
                 }
