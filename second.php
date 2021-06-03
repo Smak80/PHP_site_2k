@@ -18,12 +18,12 @@ class registrator{
 
     }
 
-    public function is_user_exists(){
+    public function is_user_exists($login){
 
     }
 
     public function save_data(){
-        $filename = "users2.dat";
+        $filename = "users3.dat";
         if (!file_exists($filename) || is_writable($filename)) {
             //$psw = $this->user_data['password'];
             $psw = password_hash($this->user_data['password'], PASSWORD_DEFAULT);
@@ -38,27 +38,11 @@ class registrator{
 
     public function is_passwords_correct(){
         return $this->is_data_sent()
-            && mb_strlen($this->user_data['password']>=6)
+            && mb_strlen($this->user_data['password'])>=6
             && $this->user_data['password'] === $this->user_data['password2'];
     }
-
-    public function authenticate($login, $psw): bool{
-        $filename = "users.dat";
-        $res = false;
-        if (is_readable($filename)) {
-            $f = fopen($filename, "r");
-            while ($s = fgets($f)){
-                $sa = mb_split("\\s", $s);
-                if (strcmp($sa[0], $login)===0){
-                    $res = password_verify($psw, $sa[1]);
-                    break;
-                }
-            }
-            fclose($f);
-        }
-        return $res;
-    }
 }
+
 
 class second extends a_content
 {
@@ -78,10 +62,6 @@ class second extends a_content
                 print ("<div class='err_msg'>Проверьте ввод паролей.</div>");
             } else {
                 $this->reg->save_data();
-                if ($this->reg->authenticate("smaklets", "111111")){
-                    print("<br>PSW OK!<br>");
-                    $_SESSION["logged_in"] = "true";
-                }
             }
 
         }
@@ -102,7 +82,7 @@ class second extends a_content
                 Повтор пароля:
                 <input type="password" name="password2">
             </label>
-            <input type="submit" value="Отправить">
+            <input type="submit" value="Зарегистрироваться">
         </form>
         <?php
         $data = $this->get_user_value('data');

@@ -8,7 +8,6 @@ class a_page
 
     public function __construct(a_content $the_page){
         $this->the_page = $the_page;
-        session_start();
     }
 
     private function start_page(){

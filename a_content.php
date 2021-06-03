@@ -9,6 +9,7 @@ abstract class a_content
     protected $request = array();
 
     public function __construct(){
+        session_start();
         $this->get_user_data();
     }
 

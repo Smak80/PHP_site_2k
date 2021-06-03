@@ -10,6 +10,7 @@ class third extends a_content
     public function __construct()
     {
         parent::__construct();
+        $this->try_logout();
     }
 
     private function try_logout(){
@@ -20,13 +21,12 @@ class third extends a_content
 
     public function show_content()
     {
-        $this->try_logout();
         if (isset($_SESSION['logged_in'])){
             print ("AUTHORIZED USER");
+            print ("<br><a href='third.php?exit=1'>Выход</a>");
         } else {
             print ("UNAUTHORIZED USER");
         }
-        print ("<br><a href='third.php?exit=1'>Выход</a>");
     }
 }
 
